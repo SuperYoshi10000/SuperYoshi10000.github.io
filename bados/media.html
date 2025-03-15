@@ -36,6 +36,7 @@
                     const time = Math.random() * 1000 + 1000;
                     while (new Date().getTime() - start < time) {}
                     var file = files[f];
+                    console.log(f, file);
                     var url = URL.createObjectURL(file);
                     var object = document.createElement("object");
                     object.data = url;
@@ -43,7 +44,7 @@
                     document.getElementById("textareastuff").appendChild(object);
                 };
             }
-            document.body.removeChild(f);
+            document.body.removeChild(i);
         });
     });
     window.addEventListener("keydown", e => {
