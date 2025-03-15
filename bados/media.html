@@ -27,6 +27,7 @@
         i.addEventListener("change", async e => {
             var files = i.files;
             if (!files || files.length === 0) return;
+            console.log(files);
             for (var f = 0; f < files.length; f++) {
                 var reader = new FileReader();
                 reader.readAsText(files[f]);
