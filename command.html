@@ -1,0 +1,52 @@
+<script>
+    // Loading
+    const start = new Date().getTime();
+    const time = Math.random() * 4000 + 2000;
+    while (new Date().getTime() - start < time) {}
+</script>
+<title>Command prompt</title>
+<input id="text"/>
+<button id="run">Run</button>
+<p id="message"></p>
+<script>
+    let text = document.getElementById("text");
+    let run = document.getElementById("run");
+    let message = document.getElementById("message");
+    window.addEventListener("keydown", e => {
+        if (e.ctrlKey && (e.keyCode === 79 || e.keyCode === 81 || e.keyCode === 83)) {
+            e.preventDefault();
+        }
+        if (e.key === "Escape") {
+            location.href = "about:blank";
+        }
+    });
+    text.addEventListener("keydown", e => {
+        if (e.key === "Enter") {
+            run.click();
+        }
+    });
+    run.addEventListener("click", e => {
+        let input = text.value.toLowerCase();
+        if (input === "text") location.replace("text.html");
+        else if (input === "rich text") location.replace("rich-text.html");
+        else if (input === "preview") location.replace("preview.html");
+        else if (input === "media") location.replace("media.html");
+        else if (input === "command") location.replace("command.html");
+        else if (input === "help") {
+            message.innerHTML = "Available commands:<br/>" +
+                "<ul>" +
+                "<li>text</li>" +
+                "<li>rich text</li>" +
+                "<li>preview</li>" +
+                "<li>media</li>" +
+                "<li>command</li>" +
+                "<li>help</li>" +
+                "<li>exit</li>" +
+                "</ul>";
+        } else if (input === "exit") {
+            location.href = "about:blank";
+        } else if (input === "") {} else {
+            message.innerText = "Unknown command " + input + ". Type 'help' for a list of commands.";
+        }
+    });
+</script>

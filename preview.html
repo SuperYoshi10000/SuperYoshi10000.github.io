@@ -1,0 +1,62 @@
+<script>
+    // Loading
+    const start = new Date().getTime();
+    const time = Math.random() * 4000 + 2000;
+    while (new Date().getTime() - start < time) {}
+</script>
+<title>Text editor</title>
+<button id="load">Open</button>
+<a style="float: right; padding-right: 5px;" href="command.html">Close</a>
+<pre id="textareastuff"></pre>
+<script>
+    var load = document.getElementById("load");
+    load.addEventListener("click", async e => {
+        // Loading
+        const start = new Date().getTime();
+        const time = Math.random() * 1000 + 1000;
+        while (new Date().getTime() - start < time) {}
+        var i = document.createElement("input");
+        i.type = "file";
+        i.style.display = "none";
+        document.body.appendChild(i);
+        i.click();
+        i.addEventListener("change", async e => {
+            var file = i.files[0];
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                // Reading
+                const start = new Date().getTime();
+                const time = Math.random() * 1000 + 1000;
+                while (new Date().getTime() - start < time) {}
+                var text = e.target.result;
+                document.getElementById("textareastuff").innerText = text;
+                document.body.removeChild(i);
+            };
+            reader.readAsText(file);
+        });
+    });
+    window.addEventListener("keydown", e => {
+        if (e.keyCode === 83 && e.ctrlKey) {
+            
+        } else if (e.keyCode === 79 && e.ctrlKey) {
+            e.preventDefault();
+            load.click();
+        } else if (e.keyCode === 81 && e.ctrlKey) {
+            e.preventDefault();
+            document.querySelector("a").click();
+        }
+    });
+</script>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+    }
+    #textareastuff {
+        width: 100vw;
+        height: calc(100vh - 25px);
+        overflow: auto;
+        margin: 0;
+    } 
+</style>

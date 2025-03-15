@@ -1,0 +1,92 @@
+<script>
+    // Loading
+    const start = new Date().getTime();
+    const time = Math.random() * 4000 + 2000;
+    while (new Date().getTime() - start < time) {}
+</script>
+<title>Text editor</title>
+<button id="save">Save</button>
+<button id="load">Load</button>
+<a style="float: right; padding-right: 5px;" href="command.html">Close</a>
+<textarea id="textareastuff"></textarea>
+<script>
+    var save = document.getElementById("save");
+    var load = document.getElementById("load");
+    save.addEventListener("click", async e => {
+        // Loading
+        const start = new Date().getTime();
+        const time = Math.random() * 1000 + 1000;
+        while (new Date().getTime() - start < time) {}
+        if (window.navigator.msSaveOrOpenBlob) window.navigator.msSaveOrOpenBlob(file, filename);
+        else {
+            var text = document.getElementById("textareastuff").value;
+            var filename = prompt("Enter filename", "text.txt");
+            if (filename === null) return;
+            // Saving
+            const start = new Date().getTime();
+            const time = Math.random() * 1000 + 1000;
+            while (new Date().getTime() - start < time) {}
+            var file = new File([text], filename, {type: "text/plain"});
+            var a = document.createElement("a");
+            a.style.display = "none";
+            var url = URL.createObjectURL(file);
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            setTimeout(function() {
+                document.body.removeChild(a);
+                window.URL.revokeObjectURL(url);  
+            }, 0);
+        }
+    });
+    load.addEventListener("click", async e => {
+        // Loading
+        const start = new Date().getTime();
+        const time = Math.random() * 1000 + 1000;
+        while (new Date().getTime() - start < time) {}
+        var i = document.createElement("input");
+        i.type = "file";
+        i.style.display = "none";
+        document.body.appendChild(i);
+        i.click();
+        i.addEventListener("change", async e => {
+            var file = i.files[0];
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                // Reading
+                const start = new Date().getTime();
+                const time = Math.random() * 1000 + 1000;
+                while (new Date().getTime() - start < time) {}
+                var text = e.target.result;
+                document.getElementById("textareastuff").value = text;
+                document.body.removeChild(i);
+            };
+            reader.readAsText(file);
+        });
+    });
+    window.addEventListener("keydown", e => {
+        if (e.keyCode === 83 && e.ctrlKey) {
+            e.preventDefault();
+            save.click();
+        } else if (e.keyCode === 79 && e.ctrlKey) {
+            e.preventDefault();
+            load.click();
+        } else if (e.keyCode === 81 && e.ctrlKey) {
+            e.preventDefault();
+            document.querySelector("a").click();
+        }
+    });
+</script>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+    }
+    #textareastuff {
+        width: 100vw;
+        height: calc(100vh - 25px);
+        resize: none;
+    } 
+</style>
