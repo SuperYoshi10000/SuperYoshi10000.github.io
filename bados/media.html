@@ -29,21 +29,18 @@
             if (!files || files.length === 0) return;
             console.log(files);
             for (var f = 0; f < files.length; f++) {
-                var reader = new FileReader();
-                reader.readAsText(files[f]);
-                reader.onload = function(e) {
-                    // Reading
-                    const start = new Date().getTime();
-                    const time = Math.random() * 1000 + 1000;
-                    while (new Date().getTime() - start < time) {}
-                    var file = files[f];
-                    console.log(f, file);
-                    var url = URL.createObjectURL(file);
-                    var object = document.createElement("object");
-                    object.data = url;
-                    object.type = file.type;
-                    document.getElementById("textareastuff").appendChild(object);
-                };
+                // Reading
+                const start = new Date().getTime();
+                const time = Math.random() * 1000 + 1000;
+                while (new Date().getTime() - start < time) {}
+                var file = files[f];
+                // var content = await file.text();
+                var url = URL.createObjectURL(file);
+                console.log(url);
+                var object = document.createElement("object");
+                object.data = url;
+                object.type = file.type;
+                document.getElementById("textareastuff").appendChild(object);
             }
             document.body.removeChild(i);
         });
