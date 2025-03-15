@@ -9,9 +9,9 @@
 <button id="run">Run</button>
 <p id="message"></p>
 <script>
-    let text = document.getElementById("text");
-    let run = document.getElementById("run");
-    let message = document.getElementById("message");
+    var text = document.getElementById("text");
+    var run = document.getElementById("run");
+    var message = document.getElementById("message");
     window.addEventListener("keydown", e => {
         if (e.ctrlKey && (e.keyCode === 79 || e.keyCode === 81 || e.keyCode === 83)) {
             e.preventDefault();
@@ -26,7 +26,7 @@
         }
     });
     run.addEventListener("click", e => {
-        let input = text.value.toLowerCase();
+        var input = text.value.toLowerCase();
         if (input === "text") location.replace("text.html");
         else if (input === "rich text") location.replace("rich-text.html");
         else if (input === "preview") location.replace("preview.html");
