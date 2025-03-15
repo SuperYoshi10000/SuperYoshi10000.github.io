@@ -31,7 +31,11 @@
     async function getSearch() {
         var input = text.value.toLowerCase();
         if (input === "") return;
-        var searchResponse = await fetch("https://bing.com/search?q=" + encodeURIComponent(input));
+        var searchResponse = await fetch("https://bing.com/search?q=" + encodeURIComponent(input), {
+            headers: {
+                "no-cors": "no-cors"
+            }
+        });
         var d = parser.parseFromString(await searchResponse.text(), "text/html");
         var content = d.querySelector("#b_content");
         document.getElementById("content").innerHTML = content.innerHTML;
