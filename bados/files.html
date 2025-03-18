@@ -1,0 +1,125 @@
+<script>
+    // Loading
+    const start = new Date().getTime();
+    const time = Math.random() * 4000 + 2000;
+    while (new Date().getTime() - start < time) {}
+</script>
+<title>Files</title>
+<a style="float: right; padding-right: 5px; display: block" href="command.html">Close</a>
+<button id="import-files">Import Files</button>
+<button id="import-folder">Import Folder</button>
+<button id="import-archive">Import Folder from Archive</button>
+<button id="import-url">Import from URL</button>
+
+<div id="filelist"></div>
+<!-- <script type="module" src="filesystem.js"></script> -->
+<script type="module">
+    import * as fs from "./filesystem-module.js";
+    alert()
+    /**
+     * @typedef FSEntry
+     * @prop {string} name
+     * @prop {string} path
+     * @prop {FSDirectory} parent
+     */
+    /**
+     * @typedef FSFile
+     * @prop {string} name
+     * @prop {string} path
+     * @prop {FSDirectory} parent
+     * @prop {ArrayBuffer} data
+     * @prop {number} size
+     */
+    /**
+     * @typedef FSDirectory
+     * @prop {string} name
+     * @prop {string} path
+     * @prop {FSDirectory} parent
+     * @prop {Map<string, FSEntry>} entries
+     * @prop {number} size
+     * @prop {number} count
+     * @prop {()}
+     */
+
+    var importFiles = document.getElementById("import-files");
+    var importFolder = document.getElementById("import-folder");
+    var importArchive = document.getElementById("import-archive");
+    var importUrl = document.getElementById("import-url");
+    var filelist = document.getElementById("filelist");
+
+    importFiles.addEventListener("click", async e => {
+        // Loading
+        const start = new Date().getTime();
+        const time = Math.random() * 1000 + 1000;
+        while (new Date().getTime() - start < time) {}
+
+        var input = document.createElement("input");
+        input.type = "file";
+        input.multiple = true;
+        input.style.display = "none";
+        document.body.appendChild(input);
+        input.click();
+        input.addEventListener("change", async e => {
+            var files = input.files;
+            if (!files || files.length === 0) return;
+            console.log(files);
+            for (var f = 0; f < files.length; f++) {
+                // Reading
+                const start = new Date().getTime();
+                const time = Math.random() * 1000 + 1000;
+                while (new Date().getTime() - start < time) {}
+                var file = files[f];
+                filesystem.addEntry();
+            }
+            document.body.removeChild(input);
+        });
+    });
+    importFolder.addEventListener("click", async e => {
+        // Loading
+        const start = new Date().getTime();
+        const time = Math.random() * 1000 + 1000;
+        while (new Date().getTime() - start < time) {}
+
+        var input = document.createElement("input");
+        input.type = "file";
+        if (!("webkitdirectory" in input)) {
+            console.error("Your browser does not support importing folders. Please use a different browser, import files instead, or use the import folder from archive option.");
+            alert("Your browser does not support importing folders. Please use a different browser, import files instead, or use the import folder from archive option.");
+            importFolder.disabled = true; // Disable the button if the browser does not support it
+            return;
+        }
+        input.webkitdirectory = true;
+        input.multiple = true;
+        input.style.display = "none";
+        document.body.appendChild(input);
+        input.click();
+        input.addEventListener("change", async e => {
+            var files = input.files;
+            if (!files || files.length === 0) return;
+            console.log(files);
+            for (var f = 0; f < files.length; f++) {
+                // Reading
+                const start = new Date().getTime();
+                const time = Math.random() * 1000 + 1000;
+                while (new Date().getTime() - start < time) {}
+                var file = files[f];
+                storedFiles.push(file);
+            }
+            document.body.removeChild(input);
+        });
+    });
+    window.addEventListener("keydown", e => {
+        if (e.keyCode === 79 && e.ctrlKey) {
+            e.preventDefault();
+            importFiles.click();
+        } else if (e.keyCode === 81 && e.ctrlKey) {
+            e.preventDefault();
+            document.querySelector("a").click();
+        }
+    });
+
+    function addFile() {
+
+    }
+        
+</script>
